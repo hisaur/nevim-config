@@ -8,6 +8,8 @@ Plug 'shaunsingh/nord.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'ap/vim-buftabline'
+Plug 'airblade/vim-gitgutter'
 vim.call('plug#end')
 
 require("nvim-tree").setup()
@@ -58,14 +60,14 @@ local function edit_or_open()
     -- Just copy what's done normally with vsplit
     if node.link_to and not node.nodes then
         require('nvim-tree.actions.node.open-file').fn(action, node.link_to)
-        view.close() -- Close the tree if file was opened
+        -- view.close() -- Close the tree if file was opened
 
     elseif node.nodes ~= nil then
         lib.expand_or_collapse(node)
 
     else
         require('nvim-tree.actions.node.open-file').fn(action, node.absolute_path)
-        view.close() -- Close the tree if file was opened
+        -- view.close() -- Close the tree if file was opened
     end
 
 end
@@ -110,5 +112,8 @@ local config = {
 }
 
 vim.api.nvim_set_keymap("n", "<C-h>", ":NvimTreeToggle<cr>" ,{silent = true, noremap = true})
+local set = vim.opt
+set.number = true
+set.relativenumber = true
+set.updatetime = 100
 require('nvim-tree').setup(config)
-
