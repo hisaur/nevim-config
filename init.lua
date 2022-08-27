@@ -10,7 +10,10 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'ap/vim-buftabline'
 Plug 'airblade/vim-gitgutter'
+Plug 'neoclide/coc.nvim'
 vim.call('plug#end')
+
+
 
 require("nvim-tree").setup()
 require'nvim-treesitter.configs'.setup {
@@ -117,3 +120,4 @@ set.number = true
 set.relativenumber = true
 set.updatetime = 100
 require('nvim-tree').setup(config)
+vim.cmd "source ~/.config/nvim/coc.vim"
