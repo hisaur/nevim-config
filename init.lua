@@ -11,11 +11,12 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'ap/vim-buftabline'
 Plug 'airblade/vim-gitgutter'
 Plug 'neoclide/coc.nvim'
+Plug 'akinsho/toggleterm.nvim'
+Plug 'tpope/vim-commentary'
 vim.call('plug#end')
 
 
 
-require("nvim-tree").setup()
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "go", "lua", "go","python","java","json","json5" },
 
@@ -35,9 +36,6 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
--- keymap('n', '<leader>t', 'NvimTreeToggle<cr>')
-vim.keymap.set('n', '<Leader>t', ':NvimTreeToggle<CR>')
-vim.keymap.set('n', '<Leader>f', ':NvimTreeFocus<CR>')
 -- Functional wrapper for mapping hjkl for Nvim tree
 function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
@@ -46,7 +44,6 @@ function map(mode, lhs, rhs, opts)
     end
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
-vim.cmd[[colorscheme nord]]
 local lib = require("nvim-tree.lib")
 local view = require("nvim-tree.view")
 
@@ -96,6 +93,10 @@ local function vsplit_preview()
     view.focus()
 end
 local config = {
+     sort_by = "case_sensitive",
+     open_on_setup = true,
+     sync_root_with_cwd = true,
+
     view = {
         mappings = {
             custom_only = false,
@@ -121,3 +122,10 @@ set.relativenumber = true
 set.updatetime = 100
 require('nvim-tree').setup(config)
 vim.cmd "source ~/.config/nvim/coc.vim"
+vim.cmd[[colorscheme nord]]
+require("toggleterm").setup{}
+vim.keymap.set('n', '<Leader>t', ':NvimTreeToggle<CR>', {noremap = true , silent = true})
+vim.keymap.set('n', '<Leader>f', ':NvimTreeFocus<CR>',{noremap = true , silent = true})
+
+vim.api.nvim_set_keymap('n', '<Leader>ff',':Telescope find_files<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers<CR>', { noremap = true, silent = true })
