@@ -4,7 +4,7 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug ('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
-Plug 'shaunsingh/nord.nvim'
+Plug ('savq/melange')
 Plug 'folke/which-key.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -13,6 +13,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'neoclide/coc.nvim'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'tpope/vim-commentary'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
 vim.call('plug#end')
 
 
@@ -120,12 +122,25 @@ local set = vim.opt
 set.number = true
 set.relativenumber = true
 set.updatetime = 100
+set.ignorecase = true
+vim.opt.list = true
+require('lualine').setup()
+require("indent_blankline").setup {
+    show_end_of_line = true,
+}
 require('nvim-tree').setup(config)
 vim.cmd "source ~/.config/nvim/coc.vim"
-vim.cmd[[colorscheme nord]]
+vim.opt.termguicolors = true
+vim.cmd("colorscheme melange")
 require("toggleterm").setup{}
 vim.keymap.set('n', '<Leader>t', ':NvimTreeToggle<CR>', {noremap = true , silent = true})
 vim.keymap.set('n', '<Leader>f', ':NvimTreeFocus<CR>',{noremap = true , silent = true})
 
 vim.api.nvim_set_keymap('n', '<Leader>ff',':Telescope find_files<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-[>','<C-\\><C-n>',{noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader><Leader>',':terminal<CR>',{noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>q',':bdelete!<CR>',{noremap = true, silent = true})
+-- Copy to system clipboard throw xclip. Useful for X11 sessions.
+vim.api.nvim_set_keymap('v', '<C-y>',':\'<,\'>w !xclip -selection clipboard<Cr><Cr>',{noremap = true, silent = true})
