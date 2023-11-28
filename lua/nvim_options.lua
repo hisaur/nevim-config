@@ -12,3 +12,4 @@ vim.opt.tabstop=4
 vim.opt.list = true
 vim.cmd[[colorscheme tokyonight]]
 vim.opt.termguicolors = true
+

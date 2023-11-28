@@ -26,6 +26,7 @@ use ('nvim-treesitter/nvim-treesitter',{ run =  ':TSUpdate'})
 use {"akinsho/toggleterm.nvim", tag = '*', config = function()
   require("toggleterm").setup()
 end}
+use {'tpope/vim-commentary'}
 use {
   'VonHeikemen/lsp-zero.nvim',
   branch = 'v1.x',
