@@ -14,6 +14,7 @@ use {
   'nvim-telescope/telescope.nvim',
   requires = { {'nvim-lua/plenary.nvim'} }
 }
+use 'ojroques/vim-oscyank'
 use 'folke/tokyonight.nvim'
 use {
   'nvim-lualine/lualine.nvim',
